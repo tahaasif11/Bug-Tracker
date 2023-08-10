@@ -26,6 +26,11 @@
       <%= f.select :status, ["new","started","resolved"], class: "form-control"%>
       <% end %>
   </div>
+
+    <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image, class: "form-control" %>
+  </div>
   
 
 

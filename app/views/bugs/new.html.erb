@@ -24,6 +24,12 @@
 
 
   <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image, class: "form-control" %>
+  </div>
+
+
+  <div class="field">
     <%= f.label :solver_id %>
     <%= f.collection_select :solver_id, User.find(@project.project_users.pluck(:user_id)), :id, :name, class: "form-control" %>
   </div>

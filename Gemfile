@@ -19,6 +19,8 @@ gem "bootstrap"
 
 gem "sassc-rails"
 
+gem 'carrierwave'
+
 gem 'devise', '~> 4.9', '>= 4.9.2'
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]

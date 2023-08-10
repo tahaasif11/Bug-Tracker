@@ -30,7 +30,7 @@
 
     <div class="field">
     <%= f.label :typee %><br />
-    <%= f.select :typee, ["manager", "developer", "qa"] %>
+    <%= f.select :typee, ["manager", "developer", "qa"],{ include_blank: true }, { selected: nil } %>
   </div>
 
   <div class="actions">
