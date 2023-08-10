@@ -1,0 +1,12 @@
+<h1 align="center">bug show pages</h1>
+
+<div class="container mt-5">
+  <div class="jumbotron p-4">
+    <h3 class="mb-4">title: <%= @bug.title %></h3> 
+    <h3 class="mb-4">description: <%= @bug.description %></h3> 
+    <h3 class="mb-4">Type: <%= @bug.typee %></h3> 
+    <h3 class="mb-4">Solver: <%= @bug.solver.name %></h3>
+  </div>
+  <h3 align="center"> <%= link_to "back tp project",project_path(@bug.project_id),class: "btn btn-primary btn-lg"%></h3> 
+</div>
+

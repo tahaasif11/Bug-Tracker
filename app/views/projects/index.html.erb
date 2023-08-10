@@ -1,0 +1,12 @@
+<h1 align="center"><%=current_user.name%>'s projects </h1>
+<% @projects.each do |tmp|%>
+
+  <div class="container mt-5">
+    <div class="jumbotron p-4">
+      <h3 class="mb-4"><%= link_to tmp.name, project_path(tmp) %></h3> 
+      
+    </div>
+    
+  </div>
+
+<%end%>

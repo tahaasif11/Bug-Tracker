@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <% if user_signed_in?%>      
+
+
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <%=current_user.name%>'s profile
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+           <%if current_user.typee=="manager"%>
+           <li><%= link_to "create project", new_project_path(), class: "dropdown-item"%> </li>
+           <%end%>
+            <li><%= link_to "edit profile", edit_user_registration_path(current_user), class: "dropdown-item"%> </li>
+           <li><hr class="dropdown-divider"></li>
+            <li><%= link_to "show profile", home_path(current_user), class: "dropdown-item"%></li>
+          </ul>
+          </li>
+        <li class="nav-item">
+          <%= link_to "projects", projects_path(), class: "nav-link"%>
+        </li>
+        <%end%>  
+
+
+
+      </ul>
+      <form class="d-flex">
+        
+        
+        <% if user_signed_in?%>
+        <button class="btn btn-outline-success" ><%= link_to "logout", destroy_user_session_path, data: { 'turbo-method': :delete, 'turbo-confirm': 'Are you sure?' } %></button>
+        <%else%>
+        <button class="btn btn-outline-success"><%= link_to "login", new_user_session_path %></button>
+        <button class="btn btn-outline-success" ><%= link_to "signup", new_user_registration_path %></button>
+
+        <%end%>
+        
+      </form>
+    </div>
+  </div>
+</nav>

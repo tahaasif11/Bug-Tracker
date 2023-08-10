@@ -1,0 +1,35 @@
+<h1 align="enter">add bug in project:  <%= @project.name%></h1>
+
+<%= form_with model: @bug, url: project_bugs_path() do |f| %>
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_area :description, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :deadline %>
+    <%= f.datetime_select :deadline, class: "form-control" %>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :type %>
+    <%= f.select :typee, ["feature", "bug"] , class: "form-control"%>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :solver_id %>
+    <%= f.collection_select :solver_id, User.find(@project.project_users.pluck(:user_id)), :id, :name, class: "form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Create Bug", class: "btn btn-primary" %>
+  </div>
+<% end %>
+  
