@@ -16,24 +16,20 @@
     <%= f.datetime_select :deadline, class: "form-control" %>
   </div>
 
-
-
   <div class="field">
     <%= f.label :status %>
-      <% if @bug.typee=="feature"%>
+    <% if @bug.typee=="feature"%>
       <%= f.select :status, ["new","started", "completed"] , class: "form-control"%>
-      <% else %>
+    <% else %>
       <%= f.select :status, ["new","started","resolved"], class: "form-control"%>
-      <% end %>
+    <% end %>
   </div>
 
     <div class="field">
     <%= f.label :image %>
     <%= f.file_field :image, class: "form-control" %>
-  </div>
+   </div>
   
-
-
   <div class="field">
     <%= f.label :solver_id %>
     <%= f.collection_select :solver_id, User.find(@bug.project.project_users.pluck(:user_id)), :id, :name, class: "form-control" %>
@@ -42,5 +38,6 @@
   <div class="actions">
     <%= f.submit "update Bug" %>
   </div>
+  
 <% end %>
  

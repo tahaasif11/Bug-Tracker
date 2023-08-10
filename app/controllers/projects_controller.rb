@@ -3,14 +3,11 @@ class ProjectsController < ApplicationController
   def index
 
     if current_user.typee=="developer" or current_user.typee=="qa"
-
       @project =current_user.project_users.pluck(:project_id)
       @projects = Project.find(@project)
-
     else  
       @projects = current_user.projects
     end  
-    
 
   end
 
@@ -20,12 +17,14 @@ class ProjectsController < ApplicationController
   end
 
   def new
+
     @project = Project.new
 
   end  
 
 
   def create
+
     @project = Project.new(params_project)
     @project.manager=current_user
     if @project.save
@@ -39,10 +38,13 @@ class ProjectsController < ApplicationController
   end
 
   def edit
+
     @project = Project.find(params[:id])
+
   end
 
   def update
+    
     @project = Project.find(params[:id])
     if @project.update(params_project)
       flash[:success] = "project was updated successfully!"

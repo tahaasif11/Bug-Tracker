@@ -3,12 +3,11 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     # Customize the redirection path based on the resource (user) role or other criteria
       projects_path
-
   end
 
 
 
   def configure_permitted_parameters
      devise_parameter_sanitizer.permit(:sign_up, keys: [:name,:typee])
-   end 
+  end 
 end

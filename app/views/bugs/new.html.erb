@@ -16,18 +16,15 @@
     <%= f.datetime_select :deadline, class: "form-control" %>
   </div>
 
-
   <div class="field">
     <%= f.label :type %>
     <%= f.select :typee, ["feature", "bug"] , class: "form-control"%>
   </div>
 
-
   <div class="field">
     <%= f.label :image %>
     <%= f.file_field :image, class: "form-control" %>
   </div>
-
 
   <div class="field">
     <%= f.label :solver_id %>
@@ -37,5 +34,6 @@
   <div class="actions">
     <%= f.submit "Create Bug", class: "btn btn-primary" %>
   </div>
+  
 <% end %>
   

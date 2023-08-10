@@ -5,12 +5,16 @@ class BugsController < ApplicationController
   end  
 
   def show
+
     @bug = Bug.find(params[:id])
+
   end
  
   def new
+
     @bug = Bug.new
     @project = Project.find(params[:project_id])
+
   end
 
   
@@ -18,32 +22,30 @@ class BugsController < ApplicationController
  
     @project = Project.find(params[:project_id])
     @bug = @project.bugs.new(bugs_params)
-    # @bug.image = params[:image]
- 
     @bug.status="new"
     @bug.creator = current_user
-
     if @bug.save
-
       flash[:success] = "bug was created successfully"
       redirect_to project_path(@project)
     else
-    
       flash[:danger] = "bug was not created"
-     render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_entity
     end
+
   end
 
   def edit
+
     @bug = Bug.find(params[:id])
+
   end
 
   def update
+
     @bug = Bug.find(params[:id])
     if @bug.update(bugs_params)
       flash[:success] = "bug was updated successfully"
       redirect_to project_path(@bug.project)
-
     else
       flash[:danger] = "bug was not updated"
       render :edit, status: :unprocessable_entity
@@ -58,6 +60,7 @@ class BugsController < ApplicationController
     @bug.destroy
     flash[:success] = "bug was deleted successfully"
     redirect_to project_path(@project)
+    
   end  
   
   private
