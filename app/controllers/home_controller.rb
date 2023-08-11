@@ -1,10 +1,14 @@
 class HomeController < ApplicationController
+
   def index
-  end  
+
+  end 
+
   def show
+    @user = User.find(params[:id])
   end  
 
-    def destroy
+  def destroy
     @user=User.find(params[:id])
     @user.destroy
     session[:user_id]=nil

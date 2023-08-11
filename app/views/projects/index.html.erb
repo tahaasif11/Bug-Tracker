@@ -1,10 +1,30 @@
-<h1 align="center"><%=current_user.name%>'s projects </h1>
-<% @projects.each do |tmp|%>
+<div class="container">
+  <h1 align="center" class="text-capitalize"><%=current_user.name%>'s projects </h1>
 
-  <div class="container mt-5">
-    <div class="jumbotron p-4">
-      <h3 class="mb-4"><%= link_to tmp.name, project_path(tmp) %></h3> 
-    </div>
+  <div class="center-container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Project</th>
+        <th scope="col">Created by</th>
+        <th scope="col">Typee</th>
+        <th scope="col">Detail</th>
+      </tr>
+    </thead>
+    <% counter = 1 %>
+    <% @projects.each do |tmp|%>
+      <tbody>
+        <tr>
+          <th scope="row"><%= counter %></th>
+          <td><%= tmp.name%></td>
+          <td><%= tmp.manager.name%></td>
+          <td><%= current_user.typee%></td>
+          <td><%=link_to "Show", project_path(tmp)%></td>
+        </tr>
+      </tbody>
+      <% counter += 1 %>
+    <%end%>
+  </table>
   </div>
-
-<%end%>
+</div>

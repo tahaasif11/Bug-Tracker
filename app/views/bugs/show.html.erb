@@ -1,19 +1,29 @@
-<h1 align="center">bug show pages</h1>
+<div class="container">
+  <div class="profile-container">
+    <h1 class="profile-heading">Bug Title: <%= @bug.title %></h1>
 
-<div class="container mt-5">
-  <div class="jumbotron p-4">
+    <div class="container mt-5">
+      <div class="jumbotron p-4">
 
-    <% if @bug.image_url%>
-      <%= image_tag @bug.image_url,class: "bug-image"%>
-    <% end%>
+        <% if @bug.image_url%>
+          <%= image_tag @bug.image_url,class: "bug-image"%>
+        <% end%>
 
-    <h3 class="mb-4">title: <%= @bug.title %></h3> 
-    <h3 class="mb-4">description: <%= @bug.description %></h3> 
-    <h3 class="mb-4">Type: <%= @bug.typee %></h3> 
-    <h3 class="mb-4">Solver: <%= @bug.solver.name %></h3>
+        <h3 align="center" class="mb-4">Created:</h3> 
+        <h6 align="center"> <%= @bug.creator.name %></h6>
+        <h3 align="center" class="mb-4">description:</h3> 
+        <h6 align="center"> <%= @bug.description %></h6>
+        <h3 align="center"class="mb-4">Type:</h3> 
+        <h6 align="center"> <%= @bug.typee %></h6>
+        <h3 align="center"class="mb-4">Solver:</h3>
+        <h6 align="center"> <%= @bug.solver.name %></h6>
 
+      </div>
+      <div class="button-group" align="center">
+        <h3 align="center"> <%= link_to "edit bug",edit_bug_path(@bug),class: "btn btn-warning btn-md"%></h3>
+        <h3 align="center"> <%= button_to "delete bug",bug_path(@bug),method: :delete, data: { confirm: "Are you sure you want to delete this bug?" },class: "btn btn-danger btn-sm"%></h3> 
+        <h3 align="center"> <%= link_to "back to project",project_path(@bug.project_id),class: "btn btn-secondary btn-md"%></h3> 
+      </div>
+    </div>
   </div>
-
-  <h3 align="center"> <%= link_to "back tp project",project_path(@bug.project_id),class: "btn btn-primary btn-lg"%></h3> 
 </div>
-

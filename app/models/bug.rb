@@ -1,6 +1,6 @@
 class Bug < ApplicationRecord
 
-  validates :title, presence: true
+  validates :title, presence: true, uniqueness:{case_sensitive: false}
   validates :status, presence: true
   validates :typee, presence: true
   

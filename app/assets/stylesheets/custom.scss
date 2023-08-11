@@ -59,5 +59,42 @@ h1 {
 {
   margin-bottom: 15px;
 }
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 60px;
+  margin-right: 60px;
+  /* Adjust this to your desired height */
+}
 
+.profile-container {
+  max-width: 600px;
+  margin-top: 10px;
+  margin-left: 30%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-heading {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-details {
+  padding: 20px;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+}
+
+.delete-button {
+  text-align: center;
+  margin-top: 20px;
+}
+
+h1,h2,h3,h5,h6 {
+  text-transform: capitalize;
+}
   
