@@ -22,15 +22,16 @@
     <%= f.label :deadline %>
     <%= f.datetime_select :deadline, class: "form-control" %>
   </div>
-
-  <div class="field">
-    <%= f.label :status %>
-    <% if @bug.typee=="feature"%>
-      <%= f.select :status, ["new","started", "completed"] , class: "form-control"%>
-    <% else %>
-      <%= f.select :status, ["new","started","resolved"], class: "form-control"%>
-    <% end %>
-  </div>
+  <%if current_user.id==@bug.solver.id%>
+    <div class="field">
+      <%= f.label :status %>
+      <% if @bug.typee=="feature"%>
+        <%= f.select :status, ["new","started", "completed"] , class: "form-control"%>
+      <% else %>
+        <%= f.select :status, ["new","started","resolved"], class: "form-control"%>
+      <% end %>
+    </div>
+  <%end%>
 
     <div class="field">
     <%= f.label :image %>

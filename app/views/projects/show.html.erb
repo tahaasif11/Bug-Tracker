@@ -8,14 +8,14 @@
 
   <% @project_users.each do |project_user|%>
     <% if project_user.user.typee=="developer" %>
-        <h6 align="center">name: <%=link_to project_user.user.name,home_path(project_user)%></h6> 
+        <h6 align="center">name: <%=project_user.user.name%></h6> 
     <%end%>
   <%end%>
 
   <h4 align="center">Quality Assurance</h4>
   <% @project_users.each do |project_user|%>
     <% if project_user.user.typee=="qa"%>
-      <h6 align="center">name: <%= link_to project_user.user.name,home_path(project_user)%></h6> 
+      <h6 align="center">name: <%=project_user.user.name%></h6> 
     <%end%>
   <%end%>
 
@@ -35,8 +35,10 @@
     <h6 align="center">status: <%= project_bug.status%></h6> 
     <div class="button-group" align="center"> 
       <%if current_user.id==project_bug.creator.id%>
-        <h6 align="center"> <%= button_to "edit bug",edit_bug_path(project_bug),class: "btn btn-warning btn-sm"%></h6>
-        <h6 align="center"> <%= button_to "delete bug",bug_path(project_bug),method: :delete, data: { confirm: "Are you sure you want to delete this bug?" },class: "btn btn-danger btn-sm"%></h6> 
+        <h6 align="center"> <%= link_to "edit bug",edit_bug_path(project_bug),class: "btn btn-warning btn-sm"%></h6>
+        <h6 align="center"> <%= button_to "delete bug",bug_path(project_bug),method: :delete, data: { confirm: "Are you sure you want to delete this bug?" },class: "btn btn-danger btn-sm"%></h6>
+      <%elsif current_user.id==project_bug.solver.id %>
+        <h6 align="center"> <%= link_to "edit bug",edit_bug_path(project_bug),class: "btn btn-warning btn-sm"%></h6>
       <%end%>
     </div>
     <% counter += 1 %>
@@ -51,3 +53,4 @@
     <%end%>
   </div>
 </div>
+ 

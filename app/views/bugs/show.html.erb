@@ -20,10 +20,9 @@
 
       </div>
       <div class="button-group" align="center">
-        <h3 align="center"> <%= link_to "edit bug",edit_bug_path(@bug),class: "btn btn-warning btn-md"%></h3>
-        <h3 align="center"> <%= button_to "delete bug",bug_path(@bug),method: :delete, data: { confirm: "Are you sure you want to delete this bug?" },class: "btn btn-danger btn-sm"%></h3> 
         <h3 align="center"> <%= link_to "back to project",project_path(@bug.project_id),class: "btn btn-secondary btn-md"%></h3> 
       </div>
     </div>
   </div>
 </div>
+ 
