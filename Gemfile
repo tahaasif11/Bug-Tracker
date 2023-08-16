@@ -23,6 +23,8 @@ gem 'carrierwave'
 
 gem 'devise', '~> 4.9', '>= 4.9.2'
 
+gem 'cancancan'
+
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 

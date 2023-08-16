@@ -1,56 +1,109 @@
 <div class="container">
-  <h1 align="center" class="text-capitalize"><%=@project.name%> project </h1>
-  <h3 align="center">created by: <%= @project.manager.name%></h3> 
-  <h6 align="center">description: <%= @project.description%></h6> 
+  <h1 align="center" class="text-capitalize">
+    <%= @project.name %> project
+  </h1>
+
+  <h3 align="center">
+    created by: <%= @project.manager.name %>
+  </h3>
+
+  <h6 align="center">
+    description: <%= @project.description %>
+  </h6> 
+
   <hr class="line">
-  <h3 align="center">Associated Team to this Project</h3>
+
+  <h3 align="center">
+    Associated Team to this Project
+  </h3>
+
   <h4 align="center">Developer</h4>
 
-  <% @project_users.each do |project_user|%>
-    <% if project_user.user.typee=="developer" %>
-        <h6 align="center">name: <%=project_user.user.name%></h6> 
-    <%end%>
-  <%end%>
+  <% @project_users.each do |project_user| %>
+    <% if project_user.user.typee == "developer" %>
+      <h6 align="center">
+        name: <%= project_user.user.name %>
+      </h6> 
+    <% end %>
+  <% end %>
 
-  <h4 align="center">Quality Assurance</h4>
-  <% @project_users.each do |project_user|%>
-    <% if project_user.user.typee=="qa"%>
-      <h6 align="center">name: <%=project_user.user.name%></h6> 
-    <%end%>
-  <%end%>
+  <h4 align="center">
+    Quality Assurance
+  </h4>
+
+  <% @project_users.each do |project_user| %>
+    <% if project_user.user.typee == "qa" %>
+      <h6 align="center">
+        name: <%= project_user.user.name %>
+      </h6> 
+    <% end %>
+  <% end %>
 
   <hr class="line">
-  <h3 align="center">Bugs</h3>
 
-  <% if current_user.typee!="developer"%>
-    <% @projectbugs=@project.bugs%>
-  <%else%>
-    <% @projectbugs=current_user.bugs%>
-  <%end%>
+  <h3 align="center">
+    Bugs
+  </h3>
+
+  <% if current_user.typee != "developer" %>
+    <% @project_bugs = @project.bugs %>
+  <% else %>
+    <% @project_bugs = @project.bugs %>
+  <% end %>
+
   <% counter = 1 %>
-  <% @projectbugs.each do |project_bug|%>
 
-    <h5 align="center"># <%=counter%> name: <%=link_to project_bug.title,bug_path(project_bug)%></h5> 
-    <h6 align="center">description: <%= project_bug.description%></h6> 
-    <h6 align="center">status: <%= project_bug.status%></h6> 
+  <% @project_bugs.each do |project_bug| %>
+    <h5 align="center">
+      # <%= counter %> name: 
+      <%= link_to project_bug.title, bug_path(project_bug) %>
+    </h5>
+ 
+    <h6 align="center">
+      description: 
+      <%= project_bug.description %>
+    </h6> 
+
+    <h6 align="center">
+      status: 
+      <%= project_bug.status %>
+    </h6>
+
     <div class="button-group" align="center"> 
-      <%if current_user.id==project_bug.creator.id%>
-        <h6 align="center"> <%= link_to "edit bug",edit_bug_path(project_bug),class: "btn btn-warning btn-sm"%></h6>
-        <h6 align="center"> <%= button_to "delete bug",bug_path(project_bug),method: :delete, data: { confirm: "Are you sure you want to delete this bug?" },class: "btn btn-danger btn-sm"%></h6>
-      <%elsif current_user.id==project_bug.solver.id %>
-        <h6 align="center"> <%= link_to "edit bug",edit_bug_path(project_bug),class: "btn btn-warning btn-sm"%></h6>
-      <%end%>
+      <% if can? :destroy, project_bug %>
+        <%= link_to "edit bug", edit_bug_path(project_bug),
+          class: "btn btn-warning btn-sm" %>
+            
+        <%= button_to "delete bug", bug_path(project_bug),
+            method: :delete, data: {
+            'turbo-confirm': "Are you sure you want to delete this bug?"
+            }, class: "btn btn-danger btn-sm" %>
+      <% elsif can? :edit, project_bug %>
+        <%= link_to "edit bug", edit_bug_path(project_bug),
+          class: "btn btn-warning btn-sm" %>
+      <% end %>
     </div>
+
     <% counter += 1 %>
-  <%end%>
+  <% end %>
 
   <hr class="line">
+
   <div class="button-group" align="center">
-    <%= link_to "add bug",new_project_bug_path(@project.id),class: "btn btn-success btn-md"%>
-    <%if current_user.id==@project.manager.id%>
-      <%= link_to "edit project",edit_project_path(@project.id),class: "btn btn-warning btn-md"%>
-      <%= button_to "delete project",project_path(),method: :delete, data: { confirm: "Are you sure you want to delete this project?" },class: "btn btn-danger btn-md"%>
-    <%end%>
+    <% if can? :create, @bug %>
+      <%= link_to "add bug", new_project_bug_path(@project.id),
+        class: "btn btn-success btn-md" %>
+    <% end %>  
+
+    <% if can? :edit, @project %>
+      <%= link_to "edit project", edit_project_path(@project.id),
+        class: "btn btn-warning btn-md" %>
+
+      <%= button_to "delete project", project_path(),
+        method: :delete, data: {
+          'turbo-confirm': "Are you sure you want to delete this project?"
+        },class: "btn btn-danger btn-md" %>
+    <% end %>
   </div>
 </div>
  

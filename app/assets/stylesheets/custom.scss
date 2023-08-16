@@ -37,7 +37,24 @@ h1 {
   border: 1px solid #ccc;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-  
+
+.checkbox-inline {
+  padding: 0 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.checkbox {
+  border: 1px solid #ccc;
+  width: 15px;
+  height: 15px;
+}
+
+.input_checkbox {
+  font-weight: bold;
+  font-size: 16px;
+}
+
 .signup-container 
 {
   background-color: #ffffff;
@@ -65,7 +82,6 @@ h1 {
   align-items: center;
   margin-left: 60px;
   margin-right: 60px;
-  /* Adjust this to your desired height */
 }
 
 .profile-container {
@@ -97,4 +113,3 @@ h1 {
 h1,h2,h3,h5,h6 {
   text-transform: capitalize;
 }
-  

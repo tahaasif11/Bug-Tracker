@@ -1,46 +1,99 @@
-<% if @bug.errors.any? %>
-  <h2>Errors:</h2>
-  <% @bug.errors.full_messages.each do |msg| %>
-   <p><%= msg %></p>
-  <%end%>
-<% end %>
+<div class="container">
+  <% if @bug.errors.any? %>
+    <h2>
+      Errors:
+    </h2>
 
-<h1 align="enter">add bug in project:  <%= @project.name%></h1>
+    <% @bug.errors.full_messages.each do |msg| %>
+      <p>
+        <%= msg %>
+      </p>
+    <% end %>
+  <% end %>
 
-<%= form_with model: @bug, url: project_bugs_path() do |f| %>
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title, class: "form-control" %>
-  </div>
+  <h1 align="enter">
+    add bug in project: 
+    <%= @project.name %>
+  </h1>
 
-  <div class="field">
-    <%= f.label :description %>
-    <%= f.text_area :description, class: "form-control" %>
-  </div>
+  <%= form_with model: @bug, url: project_bugs_path() do |f| %>
+    <div class="field">
+      <%= f.label :title %>
+      <%= f.text_field :title, class: "form-control" %>
+    </div>
 
-  <div class="field">
-    <%= f.label :deadline %>
-    <%= f.datetime_select :deadline, class: "form-control" %>
-  </div>
+    <div class="field">
+      <%= f.label :description %>
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :deadline %>
+      <%= f.datetime_select :deadline, class: "form-control" %>
+    </div>
 
   <div class="field">
     <%= f.label :type %>
-    <%= f.select :typee, ["feature", "bug"] , class: "form-control"%>
+    <%= f.select :typee, Bug.typees.keys,
+      class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= f.label :image %>
-    <%= f.file_field :image, class: "form-control" %>
+  <div class="field" id="bug_status_field">
+    <%= f.label :status %>
+    <%= f.select :status, ["new", "started", "completed"], class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= f.label :solver_id %>
-    <%= f.collection_select :solver_id, User.find(@project.project_users.pluck(:user_id)), :id, :name, class: "form-control" %>
-  </div>
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var typeSelect = document.getElementById("bug_typee");
+    var statusSelect = document.getElementById("bug_status");
+    var statusField = document.getElementById("bug_status_field");
+
+    typeSelect.addEventListener("change", function() {
+      var selectedType = typeSelect.value;
+      var statusOptions = {
+        "feature": ["new", "started", "completed"],
+        "bug": ["new", "started", "resolved"]
+      };
+
+      var selectedStatuses = statusOptions[selectedType] || [];
+      
+      statusSelect.innerHTML = ""; // Clear existing options
+
+      selectedStatuses.forEach(function(status) {
+        var option = document.createElement("option");
+        option.value = status;
+        option.text = status;
+        statusSelect.appendChild(option);
+      });
+
+      // Show/hide the status field based on selectedStatuses
+      statusField.style.display = selectedStatuses.length > 0 ? "block" : "none";
+      });
+    });
+  </script>
 
   <div class="actions">
-    <%= f.submit "Create Bug", class: "btn btn-primary" %>
+    <%= f.submit %>
   </div>
-  
-<% end %>
-  
+
+    <div class="field">
+      <%= f.label :image %>
+      <%= f.file_field :image, class: "form-control" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :solver_id %>
+      <%= f.collection_select :solver_id, 
+        User.find(@project.project_users.pluck(:user_id)), 
+        :id, :name, class: "form-control" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Create Bug", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>  
+
+
+

@@ -1,26 +1,51 @@
 <div class="container">
   <div class="profile-container">
-    <h1 class="profile-heading">Bug Title: <%= @bug.title %></h1>
+    <h1 class="profile-heading">
+      Bug Title: <%= @bug.title %>
+    </h1>
 
     <div class="container mt-5">
       <div class="jumbotron p-4">
+        <% if @bug.image_url %>
+          <%= image_tag @bug.image_url, class: "bug-image" %>
+        <% end %>
 
-        <% if @bug.image_url%>
-          <%= image_tag @bug.image_url,class: "bug-image"%>
-        <% end%>
+        <h3 align="center" 
+          class="mb-4">Created:
+        </h3>
 
-        <h3 align="center" class="mb-4">Created:</h3> 
-        <h6 align="center"> <%= @bug.creator.name %></h6>
-        <h3 align="center" class="mb-4">description:</h3> 
-        <h6 align="center"> <%= @bug.description %></h6>
-        <h3 align="center"class="mb-4">Type:</h3> 
-        <h6 align="center"> <%= @bug.typee %></h6>
-        <h3 align="center"class="mb-4">Solver:</h3>
-        <h6 align="center"> <%= @bug.solver.name %></h6>
+        <h6 align="center">
+          <%= @bug.creator.name %>
+        </h6>
 
+        <h3 align="center" 
+          class="mb-4">description:
+        </h3>
+
+        <h6 align="center">
+          <%= @bug.description %>
+        </h6>
+
+        <h3 align="center"
+          class="mb-4">Type:
+        </h3>
+
+        <h6 align="center">
+          <%= @bug.typee %>
+        </h6>
+
+        <h3 align="center"
+          class="mb-4">Solver:
+        </h3>
+
+        <h6 align="center">
+          <%= @bug.solver.name %>
+        </h6>
       </div>
+
       <div class="button-group" align="center">
-        <h3 align="center"> <%= link_to "back to project",project_path(@bug.project_id),class: "btn btn-secondary btn-md"%></h3> 
+        <%= link_to "back to project", project_path(@bug.project_id), 
+          class: "btn btn-secondary btn-md" %>
       </div>
     </div>
   </div>

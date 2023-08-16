@@ -1,51 +1,62 @@
-<% if @bug.errors.any? %>
-  <h2>Errors:</h2>
-  <% @bug.errors.full_messages.each do |msg| %>
-   <p><%= msg %></p>
-  <%end%>
-<% end %>
+<div class="container">
+  <% if @bug.errors.any? %>
+    <h2>
+      Errors:
+    </h2>
 
-<h1 align="enter">edit page</h1>
+    <% @bug.errors.full_messages.each do |msg| %>
+      <p>
+        <%= msg %>
+      </p>
+    <% end %>
+  <% end %>
 
-<%= form_with model: @bug do |f| %>
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title, class: "form-control" %>
-  </div>
+  <h1 align="enter">
+    edit page
+  </h1>
 
-  <div class="field">
-    <%= f.label :description %>
-    <%= f.text_area :description, class: "form-control" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :deadline %>
-    <%= f.datetime_select :deadline, class: "form-control" %>
-  </div>
-  <%if current_user.id==@bug.solver.id%>
+  <%= form_with model: @bug do |f| %>
     <div class="field">
-      <%= f.label :status %>
-      <% if @bug.typee=="feature"%>
-        <%= f.select :status, ["new","started", "completed"] , class: "form-control"%>
-      <% else %>
-        <%= f.select :status, ["new","started","resolved"], class: "form-control"%>
-      <% end %>
+      <%= f.label :title %>
+      <%= f.text_field :title, class: "form-control" %>
     </div>
-  <%end%>
 
     <div class="field">
-    <%= f.label :image %>
-    <%= f.file_field :image, class: "form-control" %>
-   </div>
-  
-  <div class="field">
-    <%= f.label :solver_id %>
-    <%= f.collection_select :solver_id, User.find(@bug.project.project_users.pluck(:user_id)), :id, :name, class: "form-control" %>
-  </div>
+      <%= f.label :description %>
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
 
-  <div class="actions">
-    <%= f.submit "update Bug" %>
-  </div>
-  
-<% end %>
- 
+    <div class="field">
+      <%= f.label :deadline %>
+      <%= f.datetime_select :deadline, class: "form-control" %>
+    </div>
+
+    <% if current_user.id==@bug.solver.id %>
+      <div class="field">
+        <%= f.label :status %>
+        <%= f.select :status, Bug.statuses_for_record_type(@bug.typee), 
+          class: "form-control" %>
+      </div>
+    <% end %>
+
+    
+
+    <div class="field">
+      <%= f.label :image %>
+      <%= f.file_field :image, class: "form-control" %>
+    </div>
+    
+    <div class="field">
+      <%= f.label :solver_id %>
+      <%= f.collection_select :solver_id, 
+        User.find(@bug.project.project_users.pluck(:user_id)), 
+        :id, :name, class: "form-control" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "update Bug", class: "btn btn-primary" %>
+      <%= link_to "back to project",project_path(@bug.project_id), 
+        class: "btn btn-info btn-md" %>
+    </div>
+  <% end %>
+ </div>

@@ -1,0 +1,60 @@
+<div class="container">
+  <% if @project.errors.any? %>
+    <h2>
+      Errors:
+    </h2>
+
+    <% @project.errors.full_messages.each do |msg| %>
+      <p>
+        <%= msg %>
+      </p>
+    <% end %>
+  <% end %>
+
+  <%= form_with model: @project do |f| %>
+    <div class="form-group">
+      <div class="control-label col-md-2">
+        <%= f.label :name %>
+      </div>
+
+      <div class="col-md-8">
+        <%= f.text_field :name, class: "form-control",
+           placeholder: "Name of project", autofocus: true %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="control-label col-md-2">
+        <%= f.label :description %>
+      </div>
+
+      <div class="col-md-8">
+        <%= f.text_field :description, class: "form-control", 
+          placeholder: "Enter description" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="control-label col-md-2">
+        <%= f.label "Select Project Users" %>
+    </div>
+        
+    <div class="row">
+      <div class="col-md-offset-2 col-md-8">
+        <div class="flex-container">
+          <%= f.collection_check_boxes :user_ids, 
+            User.where.not(typee: "manager"), :id, :name do |cb| %>
+              <% cb.label(class: "checkbox-inline input_checkbox") {
+                cb.check_box(class: "checkbox") + cb.text} %>
+          <% end %>
+        </div>
+      </div>
+    </div> 
+      
+    <div class="form-group">
+      <div class="col-md-offset-2 col-md-10">
+        <%= f.submit class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>

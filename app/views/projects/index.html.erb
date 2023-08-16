@@ -1,30 +1,59 @@
 <div class="container">
-  <h1 align="center" class="text-capitalize"><%=current_user.name%>'s projects </h1>
+  <h1 align="center" class="text-capitalize">
+    <%= current_user.name %>'s projects
+  </h1>
 
-  <div class="center-container">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Project</th>
-        <th scope="col">Created by</th>
-        <th scope="col">Typee</th>
-        <th scope="col">Detail</th>
-      </tr>
-    </thead>
-    <% counter = 1 %>
-    <% @projects.each do |tmp|%>
-      <tbody>
-        <tr>
-          <th scope="row"><%= counter %></th>
-          <td><%= tmp.name%></td>
-          <td><%= tmp.manager.name%></td>
-          <td><%= tmp.manager.typee%></td>
-          <td><%=link_to "Show", project_path(tmp)%></td>
-        </tr>
-      </tbody>
-      <% counter += 1 %>
-    <%end%>
-  </table>
-  </div>
+  <% if @projects.count > 0 %>
+    <div class="center-container">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+
+            <th scope="col">Project</th>
+
+            <th scope="col">Created by</th>
+
+            <th scope="col">Typee</th>
+
+            <th scope="col">Detail</th>
+          </tr>
+        </thead>
+
+        <% counter = 1 %>
+
+        <% @projects.each do |project| %>
+          <tbody>
+            <tr>
+              <td>
+                <%= counter %>
+              </td>
+
+              <td>
+                <%= project.name %>
+              </td>
+
+              <td>
+                <%= project.manager.name %>
+              </td>
+
+              <td>
+                <%= project.manager.typee %>
+              </td>
+
+              <td>
+                <%= link_to "Show", project_path(project) %>
+              </td>
+            </tr>
+          </tbody>
+
+          <% counter += 1 %>
+        <% end %>
+      </table>
+    </div>
+  <% else %>
+    <h5 align="center">
+      No projects to display.
+    </h5>
+  <% end %>
 </div>
