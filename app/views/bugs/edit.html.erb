@@ -1,16 +1,4 @@
 <div class="container">
-  <% if @bug.errors.any? %>
-    <h2>
-      Errors:
-    </h2>
-
-    <% @bug.errors.full_messages.each do |msg| %>
-      <p>
-        <%= msg %>
-      </p>
-    <% end %>
-  <% end %>
-
   <h1 align="enter">
     edit page
   </h1>
@@ -20,6 +8,12 @@
       <%= f.label :title %>
       <%= f.text_field :title, class: "form-control" %>
     </div>
+
+    <% if @bug.errors[:title].any? %>
+      <p class="error-message">
+        Title <%= @bug.errors[:title].join(", ") %>
+      </p>
+    <% end %>
 
     <div class="field">
       <%= f.label :description %>
@@ -31,15 +25,19 @@
       <%= f.datetime_select :deadline, class: "form-control" %>
     </div>
 
-    <% if current_user.id==@bug.solver.id %>
+    <% if @bug.solver.nil?%>
       <div class="field">
         <%= f.label :status %>
-        <%= f.select :status, Bug.statuses_for_record_type(@bug.typee), 
+        <%= f.select :status, Bug.statuses_for_record_type(@bug.bug_type), 
           class: "form-control" %>
       </div>
+    <% elsif current_user.id == @bug.solver.id %>
+      <div class="field">
+        <%= f.label :status %>
+        <%= f.select :status, Bug.statuses_for_record_type(@bug.bug_type), 
+        class: "form-control" %>
+      </div>
     <% end %>
-
-    
 
     <div class="field">
       <%= f.label :image %>
@@ -49,8 +47,8 @@
     <div class="field">
       <%= f.label :solver_id %>
       <%= f.collection_select :solver_id, 
-        User.find(@bug.project.project_users.pluck(:user_id)), 
-        :id, :name, class: "form-control" %>
+        User.find(@project.project_users.pluck(:user_id)), 
+        :id, :name, { include_blank: true, prompt: "Select a solver" }, class: "form-control" %>
     </div>
 
     <div class="actions">

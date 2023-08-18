@@ -25,6 +25,10 @@ gem 'devise', '~> 4.9', '>= 4.9.2'
 
 gem 'cancancan'
 
+gem 'will_paginate', '~> 3.1', '>= 3.1.6'
+
+gem 'bootstrap-will_paginate', '0.0.10'
+
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 
@@ -61,6 +65,7 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem "pry"
 end
 
 group :development do

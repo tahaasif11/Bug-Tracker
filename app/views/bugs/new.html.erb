@@ -1,16 +1,4 @@
 <div class="container">
-  <% if @bug.errors.any? %>
-    <h2>
-      Errors:
-    </h2>
-
-    <% @bug.errors.full_messages.each do |msg| %>
-      <p>
-        <%= msg %>
-      </p>
-    <% end %>
-  <% end %>
-
   <h1 align="enter">
     add bug in project: 
     <%= @project.name %>
@@ -21,6 +9,12 @@
       <%= f.label :title %>
       <%= f.text_field :title, class: "form-control" %>
     </div>
+
+    <% if @bug.errors[:title].any? %>
+      <p class="error-message">
+        Title <%= @bug.errors[:title].join(", ") %>
+      </p>
+    <% end %>
 
     <div class="field">
       <%= f.label :description %>
@@ -34,7 +28,7 @@
 
   <div class="field">
     <%= f.label :type %>
-    <%= f.select :typee, Bug.typees.keys,
+    <%= f.select :bug_type, Bug.bug_types.keys,
       class: "form-control" %>
   </div>
 
@@ -45,7 +39,7 @@
 
   <script>
   document.addEventListener("DOMContentLoaded", function() {
-    var typeSelect = document.getElementById("bug_typee");
+    var typeSelect = document.getElementById("bug_bug_type");
     var statusSelect = document.getElementById("bug_status");
     var statusField = document.getElementById("bug_status_field");
 
@@ -73,10 +67,6 @@
     });
   </script>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-
     <div class="field">
       <%= f.label :image %>
       <%= f.file_field :image, class: "form-control" %>
@@ -86,7 +76,7 @@
       <%= f.label :solver_id %>
       <%= f.collection_select :solver_id, 
         User.find(@project.project_users.pluck(:user_id)), 
-        :id, :name, class: "form-control" %>
+        :id, :name, { include_blank: true, prompt: "Select a solver" }, class: "form-control" %>
     </div>
 
     <div class="actions">

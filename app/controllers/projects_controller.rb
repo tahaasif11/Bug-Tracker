@@ -2,11 +2,8 @@ class ProjectsController < ApplicationController
   before_action :find_project, only: [:show, :edit, :destroy, :update]
   
   def index
-    if current_user.typee=="developer" or current_user.typee=="qa"
-      @projects = current_user.projects
-    else  
-      @projects = current_user.created_projects
-    end  
+    @user = User.new
+    @projects = @user.user_project(current_user).paginate(page: params[:page], per_page: 2)
   end
 
   def edit
@@ -16,6 +13,7 @@ class ProjectsController < ApplicationController
   def show
     @project_users = @project.project_users
     @bug = Bug.new
+    authorize! :read, @project
   end
 
   def new

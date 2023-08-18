@@ -20,7 +20,7 @@
   <h4 align="center">Developer</h4>
 
   <% @project_users.each do |project_user| %>
-    <% if project_user.user.typee == "developer" %>
+    <% if project_user.user.user_type == "developer" %>
       <h6 align="center">
         name: <%= project_user.user.name %>
       </h6> 
@@ -32,7 +32,7 @@
   </h4>
 
   <% @project_users.each do |project_user| %>
-    <% if project_user.user.typee == "qa" %>
+    <% if project_user.user.user_type == "qa" %>
       <h6 align="center">
         name: <%= project_user.user.name %>
       </h6> 
@@ -45,7 +45,7 @@
     Bugs
   </h3>
 
-  <% if current_user.typee != "developer" %>
+  <% if current_user.user_type != "developer" %>
     <% @project_bugs = @project.bugs %>
   <% else %>
     <% @project_bugs = @project.bugs %>
@@ -68,7 +68,7 @@
       status: 
       <%= project_bug.status %>
     </h6>
-
+ 
     <div class="button-group" align="center"> 
       <% if can? :destroy, project_bug %>
         <%= link_to "edit bug", edit_bug_path(project_bug),
@@ -78,6 +78,9 @@
             method: :delete, data: {
             'turbo-confirm': "Are you sure you want to delete this bug?"
             }, class: "btn btn-danger btn-sm" %>
+      <% elsif project_bug.solver.nil? %>
+        <%= link_to "edit bug", edit_bug_path(project_bug),
+            class: "btn btn-warning btn-sm" %>
       <% elsif can? :edit, project_bug %>
         <%= link_to "edit bug", edit_bug_path(project_bug),
           class: "btn btn-warning btn-sm" %>

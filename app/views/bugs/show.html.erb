@@ -31,7 +31,7 @@
         </h3>
 
         <h6 align="center">
-          <%= @bug.typee %>
+          <%= @bug.bug_type %>
         </h6>
 
         <h3 align="center"
@@ -39,7 +39,11 @@
         </h3>
 
         <h6 align="center">
-          <%= @bug.solver.name %>
+          <% if @bug.solver.nil? %>
+            None
+          <% else %>
+            <%= @bug.solver.name %>
+          <% end %>
         </h6>
       </div>
 

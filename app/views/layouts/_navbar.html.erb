@@ -19,7 +19,7 @@
             </a>
 
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <% if current_user.typee=="manager" %>
+              <% if current_user.user_type=="manager" %>
                 <li>
                   <%= link_to "create project", new_project_path(), 
                   class: "dropdown-item"%>

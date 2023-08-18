@@ -3,6 +3,10 @@
     <%= current_user.name %>'s projects
   </h1>
 
+  <div align="center">
+  <%= will_paginate %>
+  </div>
+  
   <% if @projects.count > 0 %>
     <div class="center-container">
       <table class="table table-striped">
@@ -14,7 +18,7 @@
 
             <th scope="col">Created by</th>
 
-            <th scope="col">Typee</th>
+            <th scope="col">Type</th>
 
             <th scope="col">Detail</th>
           </tr>
@@ -38,7 +42,7 @@
               </td>
 
               <td>
-                <%= project.manager.typee %>
+                <%= project.manager.user_type %>
               </td>
 
               <td>
@@ -56,4 +60,8 @@
       No projects to display.
     </h5>
   <% end %>
+
+  <div align="center">
+  <%= will_paginate %>
+  </div>
 </div>

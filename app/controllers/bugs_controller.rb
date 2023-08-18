@@ -47,12 +47,13 @@ class BugsController < ApplicationController
   
   private
   def bugs_params
-    params.require(:bug).permit(:title, :description, :typee, 
+    params.require(:bug).permit(:title, :description, :bug_type, 
     :status, :deadline, :solver_id, :image)
   end
 
   def find_bug
     @bug = Bug.find(params[:id])
+    @project = @bug.project
   end  
 
   def find_project
