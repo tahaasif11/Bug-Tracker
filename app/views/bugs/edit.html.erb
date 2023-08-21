@@ -4,37 +4,42 @@
   </h1>
 
   <%= form_with model: @bug do |f| %>
-    <div class="field">
-      <%= f.label :title %>
-      <%= f.text_field :title, class: "form-control" %>
-    </div>
-
-    <% if @bug.errors[:title].any? %>
-      <p class="error-message">
-        Title <%= @bug.errors[:title].join(", ") %>
-      </p>
-    <% end %>
-
-    <div class="field">
-      <%= f.label :description %>
-      <%= f.text_area :description, class: "form-control" %>
-    </div>
-
-    <div class="field">
-      <%= f.label :deadline %>
-      <%= f.datetime_select :deadline, class: "form-control" %>
-    </div>
-
-    <% if @bug.solver.nil?%>
+    <% if current_user.qa? %>
       <div class="field">
-        <%= f.label :status %>
-        <%= f.select :status, Bug.statuses_for_record_type(@bug.bug_type), 
-          class: "form-control" %>
+        <%= f.label :title %>
+        <%= f.text_field :title, class: "form-control" %>
+        
+      <% if @bug.errors[:title].any? %>
+        <p class="error-message">
+          Title <%= @bug.errors[:title].join(", ") %>
+        </p>
+      <% end %>        
       </div>
+
+      <div class="field">
+        <%= f.label :description %>
+        <%= f.text_area :description, class: "form-control" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :deadline %>
+        <%= f.date_field :deadline, class: 'datepicker', 
+        min: (f.object.created_at.strftime('%Y-%m-%d')) %>
+      </div>
+    <% end %>
+      
+    <% if @bug.solver.nil? %>
+      <% if current_user.developer? %>
+        <div class="field">
+          <%= f.label :status %>
+          <%= f.select :status, @bug.allow_status, 
+            class: "form-control" %>
+        </div>
+      <% end %>
     <% elsif current_user.id == @bug.solver.id %>
       <div class="field">
         <%= f.label :status %>
-        <%= f.select :status, Bug.statuses_for_record_type(@bug.bug_type), 
+        <%= f.select :status, @bug.allow_status, 
         class: "form-control" %>
       </div>
     <% end %>
@@ -43,13 +48,15 @@
       <%= f.label :image %>
       <%= f.file_field :image, class: "form-control" %>
     </div>
-    
-    <div class="field">
-      <%= f.label :solver_id %>
-      <%= f.collection_select :solver_id, 
-        User.find(@project.project_users.pluck(:user_id)), 
-        :id, :name, { include_blank: true, prompt: "Select a solver" }, class: "form-control" %>
-    </div>
+
+    <% if current_user.qa?%>
+      <div class="field">
+        <%= f.label :solver_id %>
+        <%= f.collection_select :solver_id, 
+          @project.users.developer, :id, :name, 
+          {prompt: "Select a solver" }, class: "form-control" %>
+      </div>
+    <% end %>
 
     <div class="actions">
       <%= f.submit "update Bug", class: "btn btn-primary" %>

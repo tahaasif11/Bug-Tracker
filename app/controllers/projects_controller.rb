@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   
   def index
     @user = User.new
-    @projects = @user.user_project(current_user).paginate(page: params[:page], per_page: 2)
+    @projects = @user.user_project(current_user).paginate(page: params[:page], per_page: 5)
   end
 
   def edit

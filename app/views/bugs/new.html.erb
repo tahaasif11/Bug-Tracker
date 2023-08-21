@@ -4,17 +4,17 @@
     <%= @project.name %>
   </h1>
 
-  <%= form_with model: @bug, url: project_bugs_path() do |f| %>
+  <%= form_with model: @bug, url: project_bugs_path(), data: { turbo_frame: true } do |f| %>
     <div class="field">
       <%= f.label :title %>
       <%= f.text_field :title, class: "form-control" %>
-    </div>
 
-    <% if @bug.errors[:title].any? %>
-      <p class="error-message">
-        Title <%= @bug.errors[:title].join(", ") %>
-      </p>
-    <% end %>
+      <% if @bug.errors[:title].any? %>
+        <p class="error-message">
+          Title <%= @bug.errors[:title].join(", ") %>
+        </p>
+      <% end %>
+    </div>
 
     <div class="field">
       <%= f.label :description %>
@@ -23,7 +23,8 @@
 
     <div class="field">
       <%= f.label :deadline %>
-      <%= f.datetime_select :deadline, class: "form-control" %>
+      <%= f.date_field :deadline, class: 'datepicker', 
+      min: Date.today.strftime('%Y-%m-%d') %>
     </div>
 
   <div class="field">
@@ -38,7 +39,7 @@
   </div>
 
   <script>
-  document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener("turbo:load", function() {
     var typeSelect = document.getElementById("bug_bug_type");
     var statusSelect = document.getElementById("bug_status");
     var statusField = document.getElementById("bug_status_field");
@@ -49,6 +50,7 @@
         "feature": ["new", "started", "completed"],
         "bug": ["new", "started", "resolved"]
       };
+      console.log(selectedType);
 
       var selectedStatuses = statusOptions[selectedType] || [];
       
@@ -60,9 +62,6 @@
         option.text = status;
         statusSelect.appendChild(option);
       });
-
-      // Show/hide the status field based on selectedStatuses
-      statusField.style.display = selectedStatuses.length > 0 ? "block" : "none";
       });
     });
   </script>
@@ -75,8 +74,8 @@
     <div class="field">
       <%= f.label :solver_id %>
       <%= f.collection_select :solver_id, 
-        User.find(@project.project_users.pluck(:user_id)), 
-        :id, :name, { include_blank: true, prompt: "Select a solver" }, class: "form-control" %>
+        @project.users.developer, :id, :name, 
+        {prompt: "Select a solver" }, class: "form-control" %>
     </div>
 
     <div class="actions">

@@ -12,7 +12,11 @@ class BugsController < ApplicationController
   end
 
   def edit
-    authorize! :edit, @bug
+    if @bug.solver.nil?
+      
+    else
+      authorize! :edit, @bug
+    end  
   end  
 
   def create

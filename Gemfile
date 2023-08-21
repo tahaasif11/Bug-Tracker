@@ -29,6 +29,8 @@ gem 'will_paginate', '~> 3.1', '>= 3.1.6'
 
 gem 'bootstrap-will_paginate', '0.0.10'
 
+gem 'bootstrap-datepicker-rails', '~> 1.7', '>= 1.7.1.1'
+
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 

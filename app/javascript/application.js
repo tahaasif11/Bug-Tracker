@@ -4,3 +4,7 @@ import "controllers"
 import "popper"
 
 import "bootstrap"
+
+//= require jquery3
+//= require jquery_ujs
+//= require datepicker

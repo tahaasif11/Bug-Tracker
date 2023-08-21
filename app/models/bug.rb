@@ -12,12 +12,11 @@ class Bug < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
-  def self.statuses_for_record_type(record_type)
-    puts "Selected record type: #{record_type}"
-    if record_type == "feature"
-      statuses.select { |key, _value| [:New, :Started, :Completed].include?(key.to_sym) }
-    elsif record_type == "bug"
-      statuses.select { |key, _value| [:New, :Started, :Resolved].include?(key.to_sym) }
-    end  
+  def allow_status
+    if feature?
+      [:New, :Started, :Completed]
+    else
+      [:New, :Started, :Resolved]
+    end
   end
 end     

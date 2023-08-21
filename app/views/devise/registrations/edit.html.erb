@@ -6,24 +6,24 @@
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
-  </div>
 
-  <% if resource.errors[:name].any? %>
-    <p class="error-message">
-      Name <%= resource.errors[:name].join(", ") %>
-    </p>
-  <% end %>
+    <% if resource.errors[:name].any? %>
+      <p class="error-message">
+        Name <%= resource.errors[:name].join(", ") %>
+      </p>
+    <% end %>
+  </div>
 
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
 
-  <% if resource.errors[:email].any? %>
-    <p class="error-message">
-      Email <%= resource.errors[:email].join(", ") %>
-    </p>
-  <% end %>  
+    <% if resource.errors[:email].any? %>
+      <p class="error-message">
+        Email <%= resource.errors[:email].join(", ") %>
+      </p>
+    <% end %>  
+  </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
@@ -36,39 +36,34 @@
       <br />
       <em><%= @minimum_password_length %> characters minimum</em>
     <% end %>
-  </div>
 
-  <% if resource.errors[:password].any? %>
-    <p class="error-message">
-      password <%= resource.errors[:password].join(", ") %>
-    </p>
-  <% end %>
+    <% if resource.errors[:password].any? %>
+      <p class="error-message">
+        password <%= resource.errors[:password].join(", ") %>
+      </p>
+    <% end %>
+  </div>
 
   <div class="field">
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
 
-  <% if resource.errors[:password_confirmation].any? %>
-    <p class="error-message">
-      password_confirmation <%= resource.errors[:password_confirmation].join(", ") %>
-    </p>
-  <% end %>  
+    <% if resource.errors[:password_confirmation].any? %>
+      <p class="error-message">
+        password_confirmation <%= resource.errors[:password_confirmation].join(", ") %>
+      </p>
+   <% end %> 
+  </div> 
 
   <div class="field">
     <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
     <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
 
-  <% if resource.errors[:current_password].any? %>
-    <p class="error-message">
-      current_password <%= resource.errors[:current_password].join(", ") %>
-    </p>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :type %><br />
-    <%= f.select :user_type, User.user_types.keys %>
+    <% if resource.errors[:current_password].any? %>
+      <p class="error-message">
+        current_password <%= resource.errors[:current_password].join(", ") %>
+      </p>
+    <% end %>
   </div>
 
   <div class="actions">

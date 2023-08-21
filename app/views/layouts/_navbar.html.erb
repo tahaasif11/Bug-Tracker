@@ -49,18 +49,12 @@
 
       <form class="d-flex">
         <% if user_signed_in? %>
-              <button class="btn btn-outline-success" >
-                <%= link_to "logout", destroy_user_session_path, data: 
-                  {'turbo-method': :delete, 'turbo-confirm': 'Are you sure?'} %>
-              </button>
+          <%= link_to "logout", destroy_user_session_path, data: 
+            {'turbo-method': :delete, 'turbo-confirm': 'Are you sure?'}, class: "btn btn-outline-danger btn-md" %>
+             
         <% else %>
-              <button class="btn btn-outline-success">
-                <%= link_to "login", new_user_session_path %>
-              </button>
-
-              <button class="btn btn-outline-success" >
-                <%= link_to "signup", new_user_registration_path %>
-              </button>
+          <%= link_to "login", new_user_session_path, class: "btn btn-outline-success btn-md" %>
+          <%= link_to "signup", new_user_registration_path, class: "btn btn-outline-success btn-md" %>
         <% end %>
       </form>
     </div>

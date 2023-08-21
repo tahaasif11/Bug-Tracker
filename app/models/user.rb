@@ -1,7 +1,6 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -16,13 +15,14 @@ class User < ApplicationRecord
   has_many :bugs, class_name: 'Bug', foreign_key: 'solver_id'
 
   def user_project(current_user)
-    if current_user.user_type=="developer" or current_user.user_type=="qa"
-      projects = current_user.projects
+    if current_user.developer? or current_user.qa?
+      current_user.projects
     else  
-      projects = current_user.created_projects
+      current_user.created_projects
     end
-    
-    projects
+  end
+
+  def name_with_type
+    "#{name} ---> #{user_type}"
   end
 end
- 
